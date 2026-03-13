@@ -1,0 +1,30 @@
+{
+    "name": "nuxt-laravel",
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "lint": "eslint .",
+        "typecheck": "nuxt typecheck"
+    },
+    "devDependencies": {
+        "@nuxt/eslint": "^1.15.2",
+        "@nuxtjs/apollo": "^5.0.0-alpha.16",
+        "@tailwindcss/vite": "^4.0.0",
+        "axios": "^1.11.0",
+        "concurrently": "^9.0.1",
+        "eslint": "^10.0.3",
+        "laravel-vite-plugin": "^2.0.0",
+        "tailwindcss": "^4.2.1",
+        "typescript": "^5.9.3",
+        "vite": "^7.0.7",
+        "vue-tsc": "^3.2.5"
+    },
+    "dependencies": {
+        "@nuxt/ui": "^4.5.1"
+    }
+}
