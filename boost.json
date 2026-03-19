@@ -10,6 +10,7 @@
     "sail": false,
     "skills": [
         "passport-development",
-        "pest-testing"
+        "pest-testing",
+        "tailwindcss-development"
     ]
 }
