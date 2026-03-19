@@ -6,35 +6,39 @@ export default defineNuxtConfig({
     '@nuxtjs/apollo'
   ],
 
-  apollo: {
-    clients: {
-      default: { httpEndpoint: import.meta.env.APP_URL + '/graphql' },
-    },
-  },
-
   devtools: {
     enabled: true
   },
 
-  srcDir: "client/",
+  css: ['~/assets/css/main.css'],
 
-  dir: {
-      public: "public/client",
+  runtimeConfig: {
+    public: {
+      API_URL: import.meta.env.APP_URL
+    }
   },
 
-  css: ['~/assets/css/main.css'],
+  dir: {
+    public: 'public/client'
+  },
+
+  srcDir: 'client/',
 
   routeRules: {
     '/': { prerender: true }
   },
 
-  runtimeConfig: {
-    public: {
-      API_URL: import.meta.env.APP_URL,
-    },
-  },
-
   compatibilityDate: '2025-01-15',
+
+  apollo: {
+    autoImports: true,
+    authType: 'Bearer',
+    authHeader: 'Authorization',
+    tokenStorage: 'cookie',
+    clients: {
+      default: { httpEndpoint: import.meta.env.APP_URL + '/graphql' }
+    }
+  },
 
   eslint: {
     config: {
