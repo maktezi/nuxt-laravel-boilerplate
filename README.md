@@ -25,6 +25,7 @@ cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
 
+php artisan passport:keys
 php artisan passport:client --personal
 # Follow the prompts to name the client and choose the user provider
 # INFO: New client created successfully.
