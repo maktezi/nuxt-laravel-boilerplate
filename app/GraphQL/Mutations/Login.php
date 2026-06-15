@@ -21,7 +21,7 @@ final class Login
             throw new \Exception('Account not activated, please contact the administrator');
         }
 
-        $tokenResult = $user->createToken('Auth Token');
+        $tokenResult = $user->createToken('Auth Token', ['*']);
 
         return [
             'token' => $tokenResult->accessToken,

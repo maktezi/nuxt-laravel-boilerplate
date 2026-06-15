@@ -12,20 +12,20 @@
         "typecheck": "nuxt typecheck"
     },
     "devDependencies": {
-        "@nuxt/eslint": "^1.15.2",
+        "@nuxt/eslint": "^1.16.0",
         "@nuxtjs/apollo": "^5.0.0-alpha.16",
-        "@tailwindcss/vite": "^4.0.0",
-        "axios": "^1.11.0",
-        "concurrently": "^9.0.1",
-        "eslint": "^10.0.3",
-        "laravel-vite-plugin": "^2.0.0",
-        "nuxt": "^4.4.2",
-        "tailwindcss": "^4.2.1",
+        "@tailwindcss/vite": "^4.3.1",
+        "axios": "^1.18.0",
+        "concurrently": "^9.2.1",
+        "eslint": "^10.5.0",
+        "laravel-vite-plugin": "^2.1.0",
+        "nuxt": "^4.4.8",
+        "tailwindcss": "^4.3.1",
         "typescript": "^5.9.3",
-        "vite": "^7.0.7",
-        "vue-tsc": "^3.2.5"
+        "vite": "^7.3.5",
+        "vue-tsc": "^3.3.5"
     },
     "dependencies": {
-        "@nuxt/ui": "^4.5.1"
+        "@nuxt/ui": "^4.8.2"
     }
 }

@@ -147,12 +147,6 @@ const initials = computed(() => {
           <span class="text-sm font-mono text-gray-400 dark:text-gray-500">{{ result.me.id }}</span>
         </div>
       </div>
-
-      <template #footer>
-        <p class="text-xs text-gray-400 dark:text-gray-600 font-mono">
-          Authenticated via Laravel Passport · GraphQL
-        </p>
-      </template>
     </UCard>
   </UContainer>
 </template>
