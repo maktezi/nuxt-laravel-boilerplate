@@ -51,8 +51,9 @@ export const useAuth = () => {
     const { mutate } = useMutation(LOGOUT_MUTATION)
     try {
       await mutate()
-    } catch (e) {
-      console.log(e.message || 'An error occurred during logout.')
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message)
+      else console.log('An error occurred during logout.')
     } finally {
       token.value = null
       user.value = null

@@ -43,8 +43,8 @@ const { mutate: logoutMutate, loading: logoutLoading } = useMutation(LOGOUT_MUTA
 async function handleLogout() {
   try {
     await logoutMutate()
-  } catch (_) {
-    // continue regardless
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : 'An error occurred during logout.')
   } finally {
     token.value = null
     user.value = null

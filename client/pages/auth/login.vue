@@ -35,10 +35,10 @@ async function handleLogin() {
       user.value = payload.user
       await router.push('/dashboard')
     }
-  } catch (err) {
+  } catch (error) {
     toast.add({
       title: 'Login Failed',
-      description: err.message || 'Invalid credentials.',
+      description: error instanceof Error ? error.message : 'Invalid credentials.',
       color: 'error'
     })
   } finally {
