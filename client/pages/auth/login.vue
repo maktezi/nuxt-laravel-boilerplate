@@ -1,40 +1,18 @@
 <script setup lang="ts">
 definePageMeta({ layout: false })
 
-const LOGIN_MUTATION = gql`
-    mutation Login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-            token
-            user {
-                id
-                name
-                email
-            }
-        }
-    }
-`
-
-const router = useRouter()
-const token = useCookie('auth_token', { maxAge: 60 * 60 * 24 * 7 })
-const user = useState('user')
+const { login } = useAuth()
 const toast = useToast()
 
 const form = reactive({ email: '', password: '' })
 const loading = ref(false)
 const showPassword = ref(false)
 
-const { mutate: loginMutate } = useMutation(LOGIN_MUTATION)
-
 async function handleLogin() {
   loading.value = true
   try {
-    const result = await loginMutate({ email: form.email, password: form.password })
-    const payload = result?.data?.login
-    if (payload?.token) {
-      token.value = payload.token
-      user.value = payload.user
-      await router.push('/dashboard')
-    }
+    await login(form.email, form.password)
+    await navigateTo('/dashboard')
   } catch (error) {
     toast.add({
       title: 'Login Failed',

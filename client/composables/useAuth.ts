@@ -29,9 +29,15 @@ const ME_QUERY = gql`
   }
 `
 
+interface AuthUser {
+  id: string
+  name: string
+  email: string
+}
+
 export const useAuth = () => {
   const token = useCookie('auth_token', { maxAge: 60 * 60 * 24 * 7 })
-  const user = useState('user', () => null)
+  const user: Ref<AuthUser | null> = useState('user', () => null)
   const router = useRouter()
 
   const login = async (email: string, password: string) => {

@@ -1,59 +1,10 @@
 <script setup lang="ts">
-const ME_QUERY = gql`
-    query Me {
-        me {
-            id
-            name
-            email
-        }
-    }
-`
+const { user, fetchMe, logout } = useAuth()
 
-const LOGOUT_MUTATION = gql`
-    mutation Logout {
-        logout {
-            message
-        }
-    }
-`
-
-const router = useRouter()
-const token = useCookie('auth_token')
-const user = useState('user', () => null)
-
-const { result, loading, error } = useQuery(ME_QUERY, null, {
-  fetchPolicy: 'cache-and-network',
-  enabled: computed(() => !!token.value)
-})
-
-watch(result, (val) => {
-  if (val?.me) user.value = val.me
-}, { immediate: true })
-
-// Only handle unexpected GraphQL errors — auth redirects are middleware's job
-watch(error, (val) => {
-  if (!val) return
-  token.value = null
-  user.value = null
-  router.push('/auth/login')
-})
-
-const { mutate: logoutMutate, loading: logoutLoading } = useMutation(LOGOUT_MUTATION)
-
-async function handleLogout() {
-  try {
-    await logoutMutate()
-  } catch (error) {
-    console.error(error instanceof Error ? error.message : 'An error occurred during logout.')
-  } finally {
-    token.value = null
-    user.value = null
-    await router.push('/auth/login')
-  }
-}
+const { loading } = fetchMe()
 
 const initials = computed(() => {
-  const name = result.value?.me?.name || ''
+  const name = user.value?.name || ''
   return name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)
 })
 </script>
@@ -74,8 +25,7 @@ const initials = computed(() => {
         color="neutral"
         variant="outline"
         icon="i-lucide-log-out"
-        :loading="logoutLoading"
-        @click="handleLogout"
+        @click="logout"
       >
         Sign out
       </UButton>
@@ -85,7 +35,6 @@ const initials = computed(() => {
     <UCard>
       <template #header>
         <div class="flex items-center gap-3">
-          <!-- Avatar -->
           <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm font-semibold shrink-0">
             <template v-if="loading">
               <USkeleton class="w-10 h-10 rounded-full" />
@@ -100,7 +49,7 @@ const initials = computed(() => {
                 <USkeleton class="h-3.5 w-24" />
               </template>
               <template v-else>
-                {{ result?.me?.name }}
+                {{ user?.name }}
               </template>
             </p>
             <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
@@ -108,14 +57,13 @@ const initials = computed(() => {
                 <USkeleton class="h-3 w-36 mt-1" />
               </template>
               <template v-else>
-                {{ result?.me?.email }}
+                {{ user?.email }}
               </template>
             </p>
           </div>
         </div>
       </template>
 
-      <!-- Fields -->
       <div
         v-if="loading"
         class="space-y-4"
@@ -131,20 +79,20 @@ const initials = computed(() => {
       </div>
 
       <div
-        v-else-if="result?.me"
+        v-else-if="user"
         class="divide-y divide-gray-100 dark:divide-gray-800"
       >
         <div class="flex items-center gap-4 py-3 first:pt-0 last:pb-0">
           <span class="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider w-14 shrink-0">Name</span>
-          <span class="text-sm text-gray-900 dark:text-gray-100">{{ result.me.name }}</span>
+          <span class="text-sm text-gray-900 dark:text-gray-100">{{ user.name }}</span>
         </div>
         <div class="flex items-center gap-4 py-3 first:pt-0 last:pb-0">
           <span class="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider w-14 shrink-0">Email</span>
-          <span class="text-sm text-gray-900 dark:text-gray-100">{{ result.me.email }}</span>
+          <span class="text-sm text-gray-900 dark:text-gray-100">{{ user.email }}</span>
         </div>
         <div class="flex items-center gap-4 py-3 first:pt-0 last:pb-0">
           <span class="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider w-14 shrink-0">ID</span>
-          <span class="text-sm font-mono text-gray-400 dark:text-gray-500">{{ result.me.id }}</span>
+          <span class="text-sm font-mono text-gray-400 dark:text-gray-500">{{ user.id }}</span>
         </div>
       </div>
     </UCard>
