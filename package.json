@@ -26,6 +26,8 @@
         "vue-tsc": "^3.3.5"
     },
     "dependencies": {
-        "@nuxt/ui": "^4.8.2"
+        "@nuxt/ui": "^4.8.2",
+        "@stylistic/eslint-plugin": "^5.10.0",
+        "eslint-plugin-perfectionist": "^5.9.1"
     }
 }

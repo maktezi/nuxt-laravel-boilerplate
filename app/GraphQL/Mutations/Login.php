@@ -24,8 +24,11 @@ final class Login
         $tokenResult = $user->createToken('Auth Token', ['*']);
 
         return [
+            'ok' => true,
             'token' => $tokenResult->accessToken,
             'user' => $user,
+            'token_type' => 'Bearer',
+            'expires_at' => $tokenResult->token->expires_at,
         ];
     }
 }

@@ -1,6 +1,9 @@
 type AuthPayload {
+    ok: Boolean
     token: String!
     user: User!
+    token_type: String
+    expires_at: DateTime
 }
 
 type LogoutResponse {
